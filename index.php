@@ -90,8 +90,12 @@
                             <i class="fa fa-users text-primary"></i>
                         </div>
                         <div class="ps-4">
-                            <h5 class="text-white mb-0">Happy Clients</h5>
-                            <h1 class="text-white mb-0" data-toggle="counter-up">12345</h1>
+                            <h5 class="text-white mb-0">Happy Students</h5>
+                            <h1 class="text-white mb-0" data-toggle="counter-up">
+                                <?php
+                                    echo mysqli_num_rows(mysqli_query($con,"SELECT * from student"));
+                                ?>
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -101,8 +105,12 @@
                             <i class="fa fa-check text-white"></i>
                         </div>
                         <div class="ps-4">
-                            <h5 class="text-primary mb-0">Projects Done</h5>
-                            <h1 class="mb-0" data-toggle="counter-up">12345</h1>
+                            <h5 class="text-primary mb-0">Job Applications</h5>
+                            <h1 class="mb-0" data-toggle="counter-up">
+                                <?php
+                                    echo mysqli_num_rows(mysqli_query($con,"SELECT * from apply_post"));
+                                ?>
+                            </h1>
                         </div>
                     </div>
                 </div>
@@ -112,8 +120,12 @@
                             <i class="fa fa-award text-primary"></i>
                         </div>
                         <div class="ps-4">
-                            <h5 class="text-white mb-0">Win Awards</h5>
-                            <h1 class="text-white mb-0" data-toggle="counter-up">12345</h1>
+                            <h5 class="text-white mb-0">Companies</h5>
+                            <h1 class="text-white mb-0" data-toggle="counter-up">
+                                <?php
+                                    echo mysqli_num_rows(mysqli_query($con,"SELECT * from company"));
+                                ?>
+                            </h1>
                         </div>
                     </div>
                 </div>
