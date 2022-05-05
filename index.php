@@ -148,7 +148,7 @@
                             <i class="fa fa-user-graduate text-white"></i>
                         </div>
                         <h4 class="mb-3">Student</h4>
-                        <p class="m-0">Amet justo dolor lorem kasd amet magna sea stet eos vero lorem ipsum dolore sed</p>
+                        <p class="m-0">Student can register online instead of going to placement department for registration. This system saves time and efforts.</p>
                         <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -160,7 +160,7 @@
                             <i class="fa fa-building text-white"></i>
                         </div>
                         <h4 class="mb-3">Company</h4>
-                        <p class="m-0">Amet justo dolor lorem kasd amet magna sea stet eos vero lorem ipsum dolore sed</p>
+                        <p class="m-0">Companies can view the number of students who has registered to their companies and also filter students.</p>
                         <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -172,7 +172,7 @@
                             <i class="fa fa-lock text-white"></i>
                         </div>
                         <h4 class="mb-3">Admin</h4>
-                        <p class="m-0">Amet justo dolor lorem kasd amet magna sea stet eos vero lorem ipsum dolore sed</p>
+                        <p class="m-0">The admin can check each student details and can remove faulty accounts.</p>
                         <a class="btn btn-lg btn-primary rounded" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
