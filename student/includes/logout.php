@@ -14,9 +14,9 @@ unset($_SESSION['student_email']);
         <script>
             Swal.fire(
             {
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'You successfully Logged out'
+                icon: 'success',
+                title: 'Success',
+                text: 'You successfully Logged out'
             }).then((result) => {
                 window.location='../index.php';
             });

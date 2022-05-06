@@ -1,3 +1,13 @@
+
+<?php
+session_start();
+if(!isset($_SESSION['student_email']))
+{
+    header('Location:index.php');
+}
+include './includes/connection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -566,50 +576,26 @@
             <div class="container">
                 <h1 class="text-center mb-5">Our Clients Say!!!</h1>
                 <div class="owl-carousel testimonial-carousel">
+                    <?php  
+                        $query=mysqli_query($con,"SELECT feedback.*,student.student_name FROM feedback,student where feedback.feedback_from=student.student_id LIMIT 4") or die(mysqli_error($con));
+                        if(mysqli_num_rows($query)){
+                            while($row=mysqli_fetch_array($query)){
+                    ?>
                     <div class="testimonial-item bg-light rounded p-4">
                         <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
+                        <p><?php echo $row['feedback_message']; ?></p>
                         <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 50px; height: 50px;">
+                            <!-- <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-1.jpg" style="width: 50px; height: 50px;"> -->
                             <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
+                                <h5 class="mb-1"><?php echo $row['student_name']; ?></h5>
+                                <!-- <small>Profession</small> -->
                             </div>
                         </div>
                     </div>
-                    <div class="testimonial-item bg-light rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-2.jpg" style="width: 50px; height: 50px;">
-                            <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-3.jpg" style="width: 50px; height: 50px;">
-                            <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item bg-light rounded p-4">
-                        <i class="fa fa-quote-left fa-2x text-primary mb-3"></i>
-                        <p>Dolor et eos labore, stet justo sed est sed. Diam sed sed dolor stet amet eirmod eos labore diam</p>
-                        <div class="d-flex align-items-center">
-                            <img class="img-fluid flex-shrink-0 rounded" src="img/testimonial-4.jpg" style="width: 50px; height: 50px;">
-                            <div class="ps-3">
-                                <h5 class="mb-1">Client Name</h5>
-                                <small>Profession</small>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </div>
