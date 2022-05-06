@@ -1,3 +1,5 @@
+<?php include("./includes/connection.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +31,10 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- sweetalert -->
+    <script src="./js/sweetalert/jquery-3.4.1.min.js"></script>
+    <script src="./js/sweetalert/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -101,19 +107,23 @@
             <div class="row g-5">
                 <div class="col-3"></div>
                 <div class="col-lg-6 wow slideInUp" data-wow-delay="0.3s">
-                    <form method="POST">
+                    <form method="POST" onsubmit="return validateForm()">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <input type="text" name="" class="form-control border-0 bg-light px-4" placeholder="Your Name" style="height: 55px;">
+                                <input type="text" id="name" name="name" class="form-control border-0 bg-light px-4" placeholder="Your Name" style="height: 55px;" onclick="clearnamevalidation()">
+                                <span id="validatename" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
-                                <input type="email" class="form-control border-0 bg-light px-4" placeholder="Your Email" style="height: 55px;">
+                                <input type="email" id="email" name="email" class="form-control border-0 bg-light px-4" placeholder="Your Email" style="height: 55px;" onclick="clearemailvalidation()">
+                                <span id="validateemail" class="text-danger"></span>
                             </div>
                             <div class="col-12">
-                                <input type="text" class="form-control border-0 bg-light px-4" placeholder="Subject" style="height: 55px;">
+                                <input type="text" id="subject" name="subject" class="form-control border-0 bg-light px-4" placeholder="Subject" style="height: 55px;" onclick="clearsubjectvalidation()">
+                                <span id="validatesubject" class="text-danger"></span>
                             </div>
                             <div class="col-12">
-                                <textarea class="form-control border-0 bg-light px-4 py-3" rows="4" placeholder="Message"></textarea>
+                                <textarea name="message" id="message" class="form-control border-0 bg-light px-4 py-3" rows="4" placeholder="Message" onclick="clearmessagevalidation()"></textarea>
+                                <span id="validatemessage" class="text-danger"></span>
                             </div>
                             <div class="col-12">
                                 <button name="submit" class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
@@ -123,7 +133,47 @@
                     <?php
                         if(isset($_POST['submit']))
                         {
+                            $name=mysqli_real_escape_string($con,$_POST['name']);
+                            $email=mysqli_real_escape_string($con,$_POST['email']);
+                            $subject=mysqli_real_escape_string($con,$_POST['subject']);
+                            $message=mysqli_real_escape_string($con,$_POST['message']);
 
+                            $sql="INSERT INTO notification (notification_from,notification_to,notification_subject,
+                            notification_message)
+                            VALUES ('$email','admin@gmail.com','$subject','$message')";
+                            
+                            $insert=mysqli_query($con,$sql);
+
+                            if($insert)
+                            {
+                                ?>
+                                    <script>
+                                        Swal.fire(
+                                        {
+                                            icon: 'success',
+                                            title: 'Success!',
+                                            text: 'Message Sent'
+                                        }).then((result) => {
+                                            window.location='contact.php';
+                                        });
+                                    </script>
+                                <?php 
+                            }
+                            else
+                            {
+                                ?>
+                                    <script>
+                                        Swal.fire(
+                                        {
+                                            icon: 'warning',
+                                            title: 'Oops!',
+                                            text: 'Something went wrong!!'
+                                        }).then((result) => {
+                                            window.location='contact.php';
+                                        });
+                                    </script>
+                                <?php  
+                            }
                         }
                     ?>
                 </div>
@@ -153,6 +203,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="./js/validations/contact.js"></script>
 </body>
 
 </html>

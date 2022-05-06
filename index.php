@@ -149,7 +149,7 @@
                         </div>
                         <h4 class="mb-3">Student</h4>
                         <p class="m-0">Student can register online instead of going to placement department for registration. This system saves time and efforts.</p>
-                        <a class="btn btn-lg btn-primary rounded" href="">
+                        <a class="btn btn-lg btn-primary rounded" href="./student/index.php">
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -161,7 +161,7 @@
                         </div>
                         <h4 class="mb-3">Company</h4>
                         <p class="m-0">Companies can view the number of students who has registered to their companies and also filter students.</p>
-                        <a class="btn btn-lg btn-primary rounded" href="">
+                        <a class="btn btn-lg btn-primary rounded" href="./company/index.php">
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -173,7 +173,7 @@
                         </div>
                         <h4 class="mb-3">Admin</h4>
                         <p class="m-0">The admin can check each student details and can remove faulty accounts.</p>
-                        <a class="btn btn-lg btn-primary rounded" href="">
+                        <a class="btn btn-lg btn-primary rounded" href="./admin/index.php">
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
