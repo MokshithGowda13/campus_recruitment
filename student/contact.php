@@ -1,4 +1,11 @@
-<?php include("./includes/connection.php"); ?>
+<?php
+session_start();
+if(!isset($_SESSION['student_id']))
+{
+    header('Location:index.php');
+}
+include './includes/connection.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
