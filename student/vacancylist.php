@@ -97,7 +97,23 @@ include './includes/connection.php';
                                     </div>
                                     <div class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
                                         <div class="d-flex mb-3">
+                                            <?php  
+                                                $vacancy_id=$row['vacancy_id'];
+                                                $ID=$_SESSION['student_id'];
+                                                $count=mysqli_num_rows(mysqli_query($con,"SELECT * from apply_post where 
+                                                vacancy_id=$vacancy_id and student_id=$ID"));
+                                                if($count==0){
+                                            ?>
                                             <a class="btn btn-primary" href="./vacancydetails.php?vacancy_id=<?php echo $row['vacancy_id'];?>">Apply Now</a>
+                                            <?php
+                                                }
+                                                else
+                                                {
+                                            ?>
+                                            <a class="btn btn-success">Applied</a>
+                                            <?php
+                                                }
+                                            ?>
                                         </div>
                                         <small class="text-truncate"><i class="far fa-calendar-alt text-primary me-2"></i>Date Line: <?php echo $row['last_date']; ?></small>
                                     </div>

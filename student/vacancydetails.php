@@ -109,7 +109,7 @@ include './includes/connection.php';
         
                         <div class="">
                             <h4 class="mb-4">Apply For The Job</h4>
-                            <form method="POST" onsubmit="return validateForm()">
+                            <form method="POST" onsubmit="return validateForm()" enctype="multipart/form-data">
                                 <?php  
                                     $ID=$_SESSION['student_id'];
                                     $query=mysqli_query($con,"SELECT * from student where student_id=$ID") or die(mysqli_error($con));
@@ -130,6 +130,10 @@ include './includes/connection.php';
                                         <span id="validatemessage" class="text-danger"></span>
                                     </div>
                                     <div class="col-12">
+                                        <input type="file" class="form-control" id="resume" onclick="clearresumevalidation()" name="resume">
+                                        <span id="validateresume" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-12">
                                         <button class="btn btn-primary w-100" name="submit" type="submit">Apply Now</button>
                                     </div>
                                 </div>
@@ -141,30 +145,65 @@ include './includes/connection.php';
                             <?php
                                 if(isset($_POST['submit']))
                                 {
+                                    function generateRandomString($length = 10) {
+                                        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                                        $charactersLength = strlen($characters);
+                                        $randomString = '';
+                                        for ($i = 0; $i < $length; $i++) {
+                                            $randomString .= $characters[rand(0, $charactersLength - 1)];
+                                        }
+                                        return $randomString;
+                                    }
+
+                                    $target_dir = "../resumes/";
+                                    $target_file = $target_dir . generateRandomString() . basename($_FILES["resume"]["name"]);
+                                    
                                     $companyid=$row['company_id'];
+                                    $vacancy_id=$row['vacancy_id'];
                                     $name=mysqli_real_escape_string($con,$_POST['name']);
                                     $email=mysqli_real_escape_string($con,$_POST['email']);
                                     $message=mysqli_real_escape_string($con,$_POST['message']);
 
-                                    $sql="INSERT INTO apply_post (company_id,student_id,message)
-                                    VALUES ('$companyid','$ID','$message')";
-                                    
-                                    $insert=mysqli_query($con,$sql);
-
-                                    if($insert)
+                                    //$isuploaded=move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file);
+                                    if((move_uploaded_file($_FILES["resume"]["tmp_name"], $target_file)))
                                     {
-                                        ?>
-                                            <script>
-                                                Swal.fire(
-                                                {
-                                                    icon: 'success',
-                                                    title: 'Success!',
-                                                    text: 'Successful'
-                                                }).then((result) => {
-                                                    window.location='vacancylist.php';
-                                                });
-                                            </script>
-                                        <?php 
+                                        
+                                        $sql="INSERT INTO apply_post (company_id,student_id,message,resume_location,vacancy_id)
+                                        VALUES ('$companyid','$ID','$message','$target_file','$vacancy_id')";
+                                        
+                                        $insert=mysqli_query($con,$sql);
+                                        
+                                        if(($insert))
+                                        {
+                                            ?>
+                                                <script>
+                                                    Swal.fire(
+                                                    {
+                                                        icon: 'success',
+                                                        title: 'Success!',
+                                                        text: 'Successful'
+                                                    }).then((result) => {
+                                                        window.location='vacancylist.php';
+                                                    });
+                                                </script>
+                                            <?php 
+                                        }
+                                        else
+                                        {
+                                            echo $sql;
+                                            ?>
+                                                <!-- <script>
+                                                    Swal.fire(
+                                                    {
+                                                        icon: 'warning',
+                                                        title: 'Oops!',
+                                                        text: 'Something went wrong!!'
+                                                    }).then((result) => {
+                                                        window.location='vacancylist.php';
+                                                    });
+                                                </script> -->
+                                            <?php  
+                                        }
                                     }
                                     else
                                     {
@@ -181,6 +220,7 @@ include './includes/connection.php';
                                             </script>
                                         <?php  
                                     }
+                                    
                                 }
                             ?>
                         </div>
