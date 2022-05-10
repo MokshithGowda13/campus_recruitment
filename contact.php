@@ -141,7 +141,7 @@
                             $sql="INSERT INTO notification (notification_from,notification_to,notification_subject,
                             notification_message)
                             VALUES ('$email','admin@gmail.com','$subject','$message')";
-                            
+
                             $insert=mysqli_query($con,$sql);
 
                             if($insert)
@@ -157,7 +157,7 @@
                                             window.location='contact.php';
                                         });
                                     </script>
-                                <?php 
+                                <?php
                             }
                             else
                             {
@@ -172,7 +172,7 @@
                                             window.location='contact.php';
                                         });
                                     </script>
-                                <?php  
+                                <?php
                             }
                         }
                     ?>
