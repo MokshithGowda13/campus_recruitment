@@ -55,31 +55,31 @@ include './includes/connection.php';
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Notifications</h4>
+                    <h4 class="card-title">Companies</h4>
                     <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
                             <th></th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Subject</th>
-                            <th>Message</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Contact Number</th>
+                            <th>Email</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php  
-                            $query=mysqli_query($con,"SELECT * from notification") or die(mysqli_error($con));
+                            $query=mysqli_query($con,"SELECT * from company") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
                                 $i=1;
                                 while($row=mysqli_fetch_array($query)){
                         ?>
                         <tr>
                             <td><?php echo $i; ?></td>
-                            <td><?php echo $row['notification_from']; ?></td>
-                            <td><?php echo $row['notification_to']; ?></td>
-                            <td><?php echo $row['notification_subject']; ?></td>
-                            <td><?php echo $row['notification_message']; ?></td>
+                            <td><?php echo $row['company_name']; ?></td>
+                            <td><?php echo $row['company_address']; ?></td>
+                            <td><?php echo $row['company_contact_no']; ?></td>
+                            <td><?php echo $row['company_email']; ?></td>
                         </tr>
                         <?php
                                 $i++;

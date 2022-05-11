@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(isset($_SESSION['admin_id']))
+if(isset($_SESSION['company_id']))
 {
     header('Location:home.php');
 }
@@ -59,9 +59,9 @@ include './includes/connection.php';
                 <!-- <div class="my-2 d-flex justify-content-between align-items-center">
                   <a href="#" class="auth-link text-black">Forgot password?</a>
                 </div> -->
-                <!-- <div class="text-center mt-4 font-weight-light">
-                  Don't have an account? <a href="register.html" class="text-primary">Create</a>
-                </div> -->
+                <div class="text-center mt-4 font-weight-light">
+                  Don't have an account? <a href="register.php" class="text-primary">Create</a>
+                </div>
               </form>
               <?php  
                 if(isset($_POST['submit']))

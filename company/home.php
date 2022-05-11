@@ -46,40 +46,94 @@ include './includes/connection.php';
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <!-- <h3 class="font-weight-bold">Welcome Admin</h3> -->
+                  <h3 class="font-weight-bold">Welcome Admin</h3>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
+            <div class="col-md-12 row grid-margin transparent">
+                <div class="col-md-3 mb-4 stretch-card transparent">
+                  <div class="card card-tale">
+                    <div class="card-body">
+                      <p class="mb-4">Total Vacancy</p>
+                      <p class="fs-30 mb-2">
+                        <?php
+                            echo mysqli_num_rows(mysqli_query($con,"SELECT * from vacancy"));
+                        ?>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-4 stretch-card transparent">
+                  <div class="card card-dark-blue">
+                    <div class="card-body">
+                      <p class="mb-4">Total Applications</p>
+                      <p class="fs-30 mb-2">
+                        <?php
+                            echo mysqli_num_rows(mysqli_query($con,"SELECT * from apply_post"));
+                        ?>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-4 stretch-card transparent">
+                  <div class="card card-light-blue">
+                    <div class="card-body">
+                      <p class="mb-4">Number of Companies</p>
+                      <p class="fs-30 mb-2">
+                        <?php
+                            echo mysqli_num_rows(mysqli_query($con,"SELECT * from company"));
+                        ?>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-4 stretch-card transparent">
+                  <div class="card card-light-danger">
+                    <div class="card-body">
+                      <p class="mb-4">Number of Students</p>
+                      <p class="fs-30 mb-2">
+                        <?php
+                            echo mysqli_num_rows(mysqli_query($con,"SELECT * from student"));
+                        ?>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Notifications</h4>
+                    <h4 class="card-title">Recent Vacancies</h4>
                     <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
                             <th></th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Subject</th>
-                            <th>Message</th>
+                            <th>Company Name</th>
+                            <th>Post</th>
+                            <th>Location</th>
+                            <th>Salary</th>
+                            <th>Last Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php  
-                            $query=mysqli_query($con,"SELECT * from notification") or die(mysqli_error($con));
+                            $query=mysqli_query($con,"SELECT vacancy.*,company.* from
+                            vacancy,company where vacancy.company_id=company.company_id") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
                                 $i=1;
                                 while($row=mysqli_fetch_array($query)){
                         ?>
                         <tr>
                             <td><?php echo $i; ?></td>
-                            <td><?php echo $row['notification_from']; ?></td>
-                            <td><?php echo $row['notification_to']; ?></td>
-                            <td><?php echo $row['notification_subject']; ?></td>
-                            <td><?php echo $row['notification_message']; ?></td>
+                            <td><?php echo $row['company_name']; ?></td>
+                            <td><?php echo $row['post']; ?></td>
+                            <td><?php echo $row['location']; ?></td>
+                            <td><?php echo $row['salary']; ?></td>
+                            <td><?php echo $row['last_date']; ?></td>
                         </tr>
                         <?php
                                 $i++;
