@@ -66,7 +66,7 @@ include './includes/connection.php';
                             <th>Post</th>
                             <th>Message</th>
                             <th>Category</th>
-                            <th>Last Date</th>
+                            <th>Resume</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -87,7 +87,7 @@ include './includes/connection.php';
                             <td><?php echo $row['post']; ?></td>
                             <td><?php echo $row['message']; ?></td>
                             <td><?php echo $row['category_name']; ?></td>
-                            <td><?php echo $row['last_date']; ?></td>
+                            <td><a href="<?php echo $row['resume_location']; ?>" class="btn btn-primary" target="_blank">View</a></td>
                         </tr>
                         <?php
                                 $i++;

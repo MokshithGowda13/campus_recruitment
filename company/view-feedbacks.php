@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(!isset($_SESSION['admin_id']))
+if(!isset($_SESSION['company_id']))
 {
     header('Location:index.php');
 }
@@ -46,7 +46,7 @@ include './includes/connection.php';
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Welcome Admin</h3>
+                  <!-- <h3 class="font-weight-bold">Welcome Admin</h3> -->
                 </div>
               </div>
             </div>
@@ -69,9 +69,11 @@ include './includes/connection.php';
                         </thead>
                         <tbody>
                         <?php  
+                            $companyid=$_SESSION['company_id'];
                             $query=mysqli_query($con,"SELECT student.*,company.*,feedback.*
                             from student,company,feedback where feedback.feedback_from=student.student_id
-                            and feedback.feedback_to=company.company_id") or die(mysqli_error($con));
+                            and feedback.feedback_to=company.company_id and 
+                            company.company_id=$companyid") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
                                 $i=1;
                                 while($row=mysqli_fetch_array($query)){

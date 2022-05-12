@@ -69,13 +69,14 @@ include './includes/connection.php';
                     $username=mysqli_real_escape_string($con,$_POST['username']);
                     $password=mysqli_real_escape_string($con,$_POST['password']);
                     
-                    $sql="SELECT * FROM admin WHERE admin_username='$username' AND admin_password='$password'";
+                    $sql="SELECT * FROM company WHERE company_username='$username' AND company_password='$password'";
                     $query=mysqli_query($con,$sql) or die(mysqli_error($con));
                     if(mysqli_num_rows($query))
                     {
                         $fetch=mysqli_fetch_array($query);
-                        $_SESSION['admin_id']=$fetch['admin_id'];
-                        $_SESSION['admin_email']=$fetch['admin_email'];
+                        $_SESSION['company_id']=$fetch['company_id'];
+                        $_SESSION['company_email']=$fetch['company_email'];
+                        $_SESSION['company_name']=$fetch['company_name'];
                         ?>
                             <script>
                                 Swal.fire(

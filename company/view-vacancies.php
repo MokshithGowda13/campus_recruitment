@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(!isset($_SESSION['admin_id']))
+if(!isset($_SESSION['company_id']))
 {
     header('Location:index.php');
 }
@@ -66,6 +66,7 @@ include './includes/connection.php';
                             <th>Location</th>
                             <th>Salary</th>
                             <th>Last Date</th>
+                            <th class="text-center">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,6 +84,10 @@ include './includes/connection.php';
                             <td><?php echo $row['location']; ?></td>
                             <td><?php echo $row['salary']; ?></td>
                             <td><?php echo $row['last_date']; ?></td>
+                            <td class="text-center">
+                              <a href="edit-vacancy.php?vacancy_id=<?php echo $row['vacancy_id']; ?>" class="btn btn-primary">Edit</a>
+                              <a href="delete-function.php?vacancy_id=<?php echo $row['vacancy_id']; ?>" class="btn btn-primary">Delete</a>
+                            </td>
                         </tr>
                         <?php
                                 $i++;

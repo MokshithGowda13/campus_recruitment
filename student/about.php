@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
+ 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
 
@@ -84,11 +84,10 @@
                     </div>
                     <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
                         <h1 class="mb-4">We Help To Get The Best Job And Find A Talent</h1>
-                        <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                        <p><i class="fa fa-check text-primary me-3"></i>Tempor erat elitr rebum at clita</p>
-                        <p><i class="fa fa-check text-primary me-3"></i>Aliqu diam amet diam et eos</p>
-                        <p><i class="fa fa-check text-primary me-3"></i>Clita duo justo magna dolore erat amet</p>
-                        <a class="btn btn-primary py-3 px-5 mt-3" href="">Read More</a>
+                        <p class="mb-4">Campus Recruitment System (CRS) is web-based tool to reduce communication gap between Job providers and Job seekers. The Main objective of this project is to make easy the recruitment process of any organization. This CRS is designed by keeping in mind both parties Job providers and Job seekers.</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Excellent Students</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Professional Staff</p>
+                        <p><i class="fa fa-check text-primary me-3"></i>Top Companies</p>
                     </div>
                 </div>
             </div>

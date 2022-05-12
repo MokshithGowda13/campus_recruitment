@@ -1,7 +1,8 @@
 <?php  
 session_start();
-unset($_SESSION['admin_email']);
-unset($_SESSION['admin_id']);
+unset($_SESSION['company_email']);
+unset($_SESSION['company_id']);
+unset($_SESSION['company_name']);
 ?>
 
 <!DOCTYPE html>

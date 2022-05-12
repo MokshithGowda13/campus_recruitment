@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(!isset($_SESSION['admin_id']))
+if(!isset($_SESSION['company_id']))
 {
     header('Location:index.php');
 }
@@ -62,7 +62,7 @@ include './includes/connection.php';
                   <form class="forms-sample" method="POST" onsubmit="return validateForm()">
                     <div class="form-group">
                       <label for="from">From</label>
-                      <input type="text" class="form-control" id="from" name="from" value="<?php echo $_SESSION['admin_email']; ?>" readonly>
+                      <input type="text" class="form-control" id="from" name="from" value="<?php echo $_SESSION['company_email']; ?>" readonly>
                     </div>  
                     <div class="form-group">
                       <label for="to">To</label>

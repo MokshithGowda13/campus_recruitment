@@ -5,26 +5,13 @@
                 <i class="icon-grid menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="add-student.php">
-                <i class="icon-head menu-icon"></i>
-                <span class="menu-title">Add Student</span>
-            </a>
-        </li>        
+        </li>     
         <li class="nav-item">
             <a class="nav-link" href="view-students.php">
                 <i class="icon-head menu-icon"></i>
                 <span class="menu-title">View Student</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="add-company.php">
-                <i class="icon-bar-graph menu-icon"></i>
-                <span class="menu-title">Add Company</span>
-            </a>
-        </li>
-        
         <li class="nav-item">
             <a class="nav-link" href="view-companies.php">
                 <i class="icon-bar-graph menu-icon"></i>
@@ -35,12 +22,6 @@
             <a class="nav-link" href="notify-student.php">
                 <i class="icon-paper menu-icon"></i>
                 <span class="menu-title">Notify Student</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="notify-company.php">
-                <i class="icon-paper menu-icon"></i>
-                <span class="menu-title">Notify Company</span>
             </a>
         </li>
         <li class="nav-item">
@@ -62,10 +43,16 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="view-vacanies.php">
+            <a class="nav-link" href="add-vacancy.php">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Add Vacancy</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="view-vacancies.php">
                 <i class="icon-columns menu-icon"></i>
                 <span class="menu-title">View Vacanies</span>
             </a>
         </li>
     </ul>
-    </nav>
+</nav>

@@ -16,7 +16,9 @@
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
             <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
             <?php  
-                $query=mysqli_query($con,"SELECT * from notification LIMIT 5") or die(mysqli_error($con));
+                $email=$_SESSION['admin_email'];
+                $query=mysqli_query($con,"SELECT * from notification where 
+                notification_to='$email' LIMIT 5") or die(mysqli_error($con));
                 if(mysqli_num_rows($query)){
                     while($row=mysqli_fetch_array($query)){
             ?>

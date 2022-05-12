@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(!isset($_SESSION['admin_id']))
+if(!isset($_SESSION['company_id']))
 {
     header('Location:index.php');
 }
@@ -66,16 +66,18 @@ include './includes/connection.php';
                             <th>Post</th>
                             <th>Message</th>
                             <th>Category</th>
-                            <th>Last Date</th>
+                            <th>Resume</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php  
+                            $company_id=$_SESSION['company_id'];
                             $query=mysqli_query($con,"SELECT company.*,student.*,category.*,apply_post.*,
                             vacancy.* from company,student,category,apply_post,vacancy where
                             company.company_id=apply_post.company_id and apply_post.student_id=student.student_id
                             and category.category_id=vacancy.category_id and 
-                            apply_post.vacancy_id=vacancy.vacancy_id") or die(mysqli_error($con));
+                            apply_post.vacancy_id=vacancy.vacancy_id and 
+                            company.company_id=$company_id") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
                                 $i=1;
                                 while($row=mysqli_fetch_array($query)){
@@ -87,7 +89,7 @@ include './includes/connection.php';
                             <td><?php echo $row['post']; ?></td>
                             <td><?php echo $row['message']; ?></td>
                             <td><?php echo $row['category_name']; ?></td>
-                            <td><?php echo $row['last_date']; ?></td>
+                            <td><a href="<?php echo $row['resume_location']; ?>" class="btn btn-primary" target="_blank">View</a></td>
                         </tr>
                         <?php
                                 $i++;

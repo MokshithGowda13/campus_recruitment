@@ -58,51 +58,66 @@ include './includes/connection.php';
           <div class="col-md-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Notify Company</h4>
+                  <h4 class="card-title">Add Vacancy</h4>
                   <form class="forms-sample" method="POST" onsubmit="return validateForm()">
                     <div class="form-group">
-                      <label for="from">From</label>
-                      <input type="text" class="form-control" id="from" name="from" value="<?php echo $_SESSION['admin_email']; ?>" readonly>
-                    </div>  
-                    <div class="form-group">
-                      <label for="to">To</label>
-                      <select class="form-control" name="to" id="to" onclick="cleartovalidation()">
-                        <option value="Null">Please Select Company</option>
+                      <label for="name">Category</label>
+                      <select name="category" id="category" class="form-control" onclick="clearcategoryvalidation()">
+                        <option value="Null">Please Select Category</option>
                         <?php  
-                            $query=mysqli_query($con,"SELECT * from company") or die(mysqli_error($con));
+                            $query=mysqli_query($con,"SELECT * from category") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
-                              while($row=mysqli_fetch_array($query)){
+                                while($row=mysqli_fetch_array($query)){
                         ?>
-                        <option value="<?php echo $row['company_email']; ?>"><?php echo $row['company_name']; ?></option>
+                        <option value="<?php echo $row['category_id']; ?>"><?php echo $row['category_name']; ?></option>
                         <?php
-                              }
+                                }
                             }
                         ?>
                       </select>
-                      <span id="validateto" class="text-danger"></span>
+                      <span id="validatecategory" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="subject">Subject</label>
-                      <input type="text" class="form-control" id="subject" onclick="clearsubjectvalidation()" name="subject" placeholder="Subject">
-                      <span id="validatesubject" class="text-danger"></span>
+                      <label for="post">Post</label>
+                      <input type="text" class="form-control" id="post" onclick="clearpostvalidation()" name="post" placeholder="Post">
+                      <span id="validatepost" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="message">Message</label>
-                      <textarea name="message" id="message" class="form-control" onclick="clearmessagevalidation()" placeholder="Message"></textarea>
-                      <span id="validatemessage" class="text-danger"></span>
+                      <label for="description">Description</label>
+                      <textarea name="description" id="description" class="form-control" onclick="cleardescriptionvalidation()" placeholder="Description"></textarea>
+                      <span id="validatedescription" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="location">Location</label>
+                      <input type="text" class="form-control" id="location" onclick="clearlocationvalidation()" name="location" placeholder="Location">
+                      <span id="validatelocation" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="salary">Salary</label>
+                      <input type="text" class="form-control" id="salary" onclick="clearsalaryvalidation()" name="salary" placeholder="Salary">
+                      <span id="validatesalary" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                      <label for="lastdate">Last Date</label>
+                      <input type="date" class="form-control" id="lastdate" onclick="clearlastdatevalidation()" name="lastdate" placeholder="Last Date">
+                      <span id="validatelastdate" class="text-danger"></span>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
                   </form>
                   <?php
                     if(isset($_POST['submit']))
                     {
-                        $from=mysqli_real_escape_string($con,$_POST['from']);
-                        $to=mysqli_real_escape_string($con,$_POST['to']);
-                        $subject=mysqli_real_escape_string($con,$_POST['subject']);
-                        $message=mysqli_real_escape_string($con,$_POST['message']);
+                        $company_id=$_SESSION['company_id'];
+                        $category=mysqli_real_escape_string($con,$_POST['category']);
+                        $post=mysqli_real_escape_string($con,$_POST['post']);
+                        $description=mysqli_real_escape_string($con,$_POST['description']);
+                        $location=mysqli_real_escape_string($con,$_POST['location']);
+                        $salary=mysqli_real_escape_string($con,$_POST['salary']);
+                        $lastdate=mysqli_real_escape_string($con,$_POST['lastdate']);
 
-                        $sql="INSERT INTO notification (notification_from,notification_to,notification_subject,notification_message)
-                        VALUES ('$from','$to','$subject','$message')";
+                        $sql="INSERT INTO vacancy (company_id,category_id,post,description,
+                        location,salary,last_date)
+                        VALUES ('$company_id','$category','$post','$description','$location','$salary','$lastdate')";
 
                         $insert=mysqli_query($con,$sql);
 
@@ -114,9 +129,9 @@ include './includes/connection.php';
                                     {
                                         icon: 'success',
                                         title: 'Success!',
-                                        text: 'Notification Sent'
+                                        text: 'Insertion Successful'
                                     }).then((result) => {
-                                        window.location='home.php';
+                                        window.location='view-vacancies.php';
                                     });
                                 </script>
                             <?php
@@ -131,7 +146,7 @@ include './includes/connection.php';
                                         title: 'Oops!',
                                         text: 'Something went wrong!!'
                                     }).then((result) => {
-                                        window.location='notify-company.php';
+                                        window.location='add-vacancy.php';
                                     });
                                 </script>
                             <?php
@@ -175,7 +190,7 @@ include './includes/connection.php';
   <script src="js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
                       
-  <script src="./js/validations/notify-company.js"></script>
+  <script src="./js/validations/add-vacancy.js"></script>
 </body>
 
 </html>

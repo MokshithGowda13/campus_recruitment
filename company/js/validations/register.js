@@ -91,7 +91,7 @@ function clearusernamevalidation(){
     document.getElementById("validateusername").textContent = "";
     document.getElementById("username").style.border = "1px solid green";
 }
-function clearpasswordnovalidation(){
+function clearpasswordvalidation(){
     document.getElementById("validatepassword").textContent = "";
     document.getElementById("password").style.border = "1px solid green";
 }

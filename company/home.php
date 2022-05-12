@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(!isset($_SESSION['admin_id']))
+if(!isset($_SESSION['company_id']))
 {
     header('Location:index.php');
 }
@@ -46,7 +46,7 @@ include './includes/connection.php';
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Welcome Admin</h3>
+                  <h3 class="font-weight-bold">Welcome <?php echo $_SESSION['company_name']; ?></h3>
                 </div>
               </div>
             </div>
@@ -59,7 +59,8 @@ include './includes/connection.php';
                       <p class="mb-4">Total Vacancy</p>
                       <p class="fs-30 mb-2">
                         <?php
-                            echo mysqli_num_rows(mysqli_query($con,"SELECT * from vacancy"));
+                            $company_id=$_SESSION['company_id'];
+                            echo mysqli_num_rows(mysqli_query($con,"SELECT * from vacancy where company_id=$company_id"));
                         ?>
                       </p>
                     </div>
@@ -106,23 +107,27 @@ include './includes/connection.php';
           <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Recent Vacancies</h4>
+                    <h4 class="card-title">Recent Applications</h4>
                     <div class="table-responsive pt-3">
                     <table class="table table-bordered">
                         <thead>
                         <tr>
                             <th></th>
                             <th>Company Name</th>
+                            <th>Student Name</th>
                             <th>Post</th>
-                            <th>Location</th>
-                            <th>Salary</th>
-                            <th>Last Date</th>
+                            <th>Message</th>
+                            <th>Category</th>
+                            <th>Resume</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php  
-                            $query=mysqli_query($con,"SELECT vacancy.*,company.* from
-                            vacancy,company where vacancy.company_id=company.company_id") or die(mysqli_error($con));
+                            $query=mysqli_query($con,"SELECT company.*,student.*,category.*,apply_post.*,
+                            vacancy.* from company,student,category,apply_post,vacancy where
+                            company.company_id=apply_post.company_id and apply_post.student_id=student.student_id
+                            and category.category_id=vacancy.category_id and 
+                            apply_post.vacancy_id=vacancy.vacancy_id and company.company_id=$company_id") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
                                 $i=1;
                                 while($row=mysqli_fetch_array($query)){
@@ -130,10 +135,11 @@ include './includes/connection.php';
                         <tr>
                             <td><?php echo $i; ?></td>
                             <td><?php echo $row['company_name']; ?></td>
+                            <td><?php echo $row['student_name']; ?></td>
                             <td><?php echo $row['post']; ?></td>
-                            <td><?php echo $row['location']; ?></td>
-                            <td><?php echo $row['salary']; ?></td>
-                            <td><?php echo $row['last_date']; ?></td>
+                            <td><?php echo $row['message']; ?></td>
+                            <td><?php echo $row['category_name']; ?></td>
+                            <td><a href="<?php echo $row['resume_location']; ?>" class="btn btn-primary" target="_blank">View</a></td>
                         </tr>
                         <?php
                                 $i++;

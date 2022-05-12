@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-if(!isset($_SESSION['admin_id']))
+if(!isset($_SESSION['company_id']))
 {
     header('Location:index.php');
 }
@@ -68,8 +68,10 @@ include './includes/connection.php';
                         </tr>
                         </thead>
                         <tbody>
-                        <?php  
-                            $query=mysqli_query($con,"SELECT * from notification") or die(mysqli_error($con));
+                        <?php
+                            $email=$_SESSION['company_email'];  
+                            $query=mysqli_query($con,"SELECT * from notification where 
+                            notification_to='$email'") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
                                 $i=1;
                                 while($row=mysqli_fetch_array($query)){

@@ -1,3 +1,13 @@
+
+<?php
+session_start();
+if(isset($_SESSION['company_id']))
+{
+    header('Location:home.php');
+}
+include './includes/connection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +27,10 @@
   <link rel="stylesheet" href="./css/vertical-layout-light/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="./images/favicon.png" />
+
+  <!-- sweetalert -->
+  <script src="./js/sweetalert/jquery-3.4.1.min.js"></script>
+  <script src="./js/sweetalert/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -29,43 +43,87 @@
               <div class="brand-logo">
                 <img src="./images/logo.svg" alt="logo">
               </div>
-              <h4>New here?</h4>
-              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-              <form class="pt-3">
+              <h6 class="font-weight-light text-center">Signing up is easy. It only takes a few steps</h6>
+              <form class="pt-3" method="POST" onsubmit="return validateForm()">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" id="name" placeholder="Name" name="name" onclick="clearnamevalidation()">
+                  <span id="validatename" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email">
+                  <textarea name="address" id="address" class="form-control form-control-lg" placeholder="Address" onclick="clearaddressvalidation()"></textarea>
+                  <span class="text-danger" id="validateaddress"></span>
                 </div>
                 <div class="form-group">
-                  <select class="form-control form-control-lg" id="exampleFormControlSelect2">
-                    <option>Country</option>
-                    <option>United States of America</option>
-                    <option>United Kingdom</option>
-                    <option>India</option>
-                    <option>Germany</option>
-                    <option>Argentina</option>
-                  </select>
+                  <input type="number" class="form-control form-control-lg" id="contactno" placeholder="Contact Number" name="contactno" onclick="clearcontactnovalidation()">
+                  <span id="validatecontactno" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <input type="email" class="form-control form-control-lg" id="email" placeholder="Email" name="email" onclick="clearemailvalidation()">
+                  <span id="validateemail" class="text-danger"></span>
                 </div>
-                <div class="mb-4">
-                  <div class="form-check">
-                    <label class="form-check-label text-muted">
-                      <input type="checkbox" class="form-check-input">
-                      I agree to all Terms & Conditions
-                    </label>
-                  </div>
+                <div class="form-group">
+                  <input type="text" class="form-control form-control-lg" id="username" placeholder="Username" name="username" onclick="clearusernamevalidation()">
+                  <span id="validateusername" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password" onclick="clearpasswordvalidation()">
+                  <span id="validatepassword" class="text-danger"></span>
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="./index.html">SIGN UP</a>
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" name="submit" type="submit">SIGN UP</button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
                   Already have an account? <a href="index.php" class="text-primary">Login</a>
                 </div>
               </form>
+                <?php
+                    if(isset($_POST['submit']))
+                    {
+                        $name=mysqli_real_escape_string($con,$_POST['name']);
+                        $address=mysqli_real_escape_string($con,$_POST['address']);
+                        $contactno=mysqli_real_escape_string($con,$_POST['contactno']);
+                        $email=mysqli_real_escape_string($con,$_POST['email']);
+                        $username=mysqli_real_escape_string($con,$_POST['username']);
+                        $password=mysqli_real_escape_string($con,$_POST['password']);
+
+                        $sql="INSERT INTO company (company_name,company_address,company_contact_no,
+                        company_email,company_username,company_password)
+                        VALUES ('$name','$address','$contactno','$email','$username','$password')";
+
+                        $insert=mysqli_query($con,$sql);
+
+                        if($insert)
+                        {
+                            ?>
+                                <script>
+                                    Swal.fire(
+                                    {
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Register Successful'
+                                    }).then((result) => {
+                                        window.location='index.php';
+                                    });
+                                </script>
+                            <?php
+                        }
+                        else
+                        {
+                            ?>
+                                <script>
+                                    Swal.fire(
+                                    {
+                                        icon: 'warning',
+                                        title: 'Oops!',
+                                        text: 'Something went wrong!!'
+                                    }).then((result) => {
+                                        window.location='register.php';
+                                    });
+                                </script>
+                            <?php
+                        }
+                    }
+                ?>
             </div>
           </div>
         </div>
@@ -87,6 +145,7 @@
   <script src="./js/settings.js"></script>
   <script src="./js/todolist.js"></script>
   <!-- endinject -->
+  <script src="./js/validations/register.js"></script>
 </body>
 
 </html>

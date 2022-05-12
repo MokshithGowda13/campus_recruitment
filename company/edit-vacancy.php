@@ -58,59 +58,62 @@ include './includes/connection.php';
           <div class="col-md-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Add Student</h4>
+                  <h4 class="card-title">Edit Vacancy</h4>
                   <form class="forms-sample" method="POST" onsubmit="return validateForm()">
+                    <?php  
+                        $vacancy_id=$_GET['vacancy_id'];
+                        $query=mysqli_query($con,"SELECT vacancy.*,category.* from category,vacancy
+                        where vacancy.category_id=category.category_id and vacancy_id=$vacancy_id") or die(mysqli_error($con));
+                        if(mysqli_num_rows($query)){
+                            while($row=mysqli_fetch_array($query)){
+                            $category_id= $row['category_id'];
+                    ?>
                     <div class="form-group">
-                      <label for="rollno">Roll Number</label>
-                      <input type="number" class="form-control" id="rollno" onclick="clearrollnovalidation()" name="rollno" placeholder="Roll Number">
-                      <span id="validaterollno" class="text-danger"></span>
-                    </div>  
-                    <div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="text" class="form-control" id="name" onclick="clearnamevalidation()" name="name" placeholder="Name">
-                      <span id="validatename" class="text-danger"></span>
+                      <label for="post">Category</label>
+                      <input type="text" class="form-control" id="category" onclick="clearcategoryvalidation()" value="<?php echo $row['category_name']; ?>" name="category" placeholder="Post" readonly>
+                      <span id="validatecategory" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="address">Address</label>
-                      <textarea name="address" id="address" class="form-control" onclick="clearaddressvalidation()" placeholder="Address"></textarea>
-                      <span id="validateaddress" class="text-danger"></span>
+                      <label for="post">Post</label>
+                      <input type="text" class="form-control" id="post" onclick="clearpostnamevalidation()" value="<?php echo $row['post']; ?>" name="post" placeholder="Post" readonly>
+                      <span id="validatepost" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" onclick="clearemailvalidation()" name="email" placeholder="Email">
-                      <span id="validateemail" class="text-danger"></span>
+                      <label for="description">Description</label>
+                      <textarea name="description" id="description" class="form-control" onclick="cleardescriptionvalidation()" placeholder="Description"><?php echo $row['description']; ?></textarea>
+                      <span id="validatedescription" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="contactno">Contact Number</label>
-                      <input type="number" class="form-control" id="contactno" onclick="clearcontactnovalidation()" name="contactno" placeholder="Contact Number">
-                      <span id="validatecontactno" class="text-danger"></span>
+                      <label for="location">Location</label>
+                      <input type="text" class="form-control" id="location" value="<?php echo $row['location']; ?>" onclick="clearlocationvalidation()" name="location" placeholder="Location">
+                      <span id="validatelocation" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="username">Username</label>
-                      <input type="text" class="form-control" id="username" onclick="clearusernamevalidation()" name="username" placeholder="Userame">
-                      <span id="validateusername" class="text-danger"></span>
+                      <label for="salary">Salary</label>
+                      <input type="text" class="form-control" id="salary" value="<?php echo $row['salary']; ?>" onclick="clearsalaryvalidation()" name="salary" placeholder="Salary">
+                      <span id="validatesalary" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" id="password" onclick="clearpasswordnovalidation()" name="password" placeholder="Password">
-                      <span id="validatepassword" class="text-danger"></span>
+                      <label for="lastdate">Last Date</label>
+                      <input type="date" class="form-control" id="lastdate" value="<?php echo $row['last_date']; ?>" onclick="clearlastdatevalidation()" name="lastdate" placeholder="Last Date">
+                      <span id="validatelastdate" class="text-danger"></span>
                     </div>
                     <button type="submit" name="submit" class="btn btn-primary mr-2">Submit</button>
+                    <?php
+                            }
+                        }
+                    ?>
                   </form>
                   <?php
                     if(isset($_POST['submit']))
                     {
-                        $rollno=mysqli_real_escape_string($con,$_POST['rollno']);
-                        $name=mysqli_real_escape_string($con,$_POST['name']);
-                        $address=mysqli_real_escape_string($con,$_POST['address']);
-                        $contactno=mysqli_real_escape_string($con,$_POST['contactno']);
-                        $email=mysqli_real_escape_string($con,$_POST['email']);
-                        $username=mysqli_real_escape_string($con,$_POST['username']);
-                        $password=mysqli_real_escape_string($con,$_POST['password']);
+                        $description=mysqli_real_escape_string($con,$_POST['description']);
+                        $location=mysqli_real_escape_string($con,$_POST['location']);
+                        $salary=mysqli_real_escape_string($con,$_POST['salary']);
+                        $lastdate=mysqli_real_escape_string($con,$_POST['lastdate']);
 
-                        $sql="INSERT INTO student (student_roll_no,student_name,student_address,student_contact_no,
-                        student_email,student_username,student_password)
-                        VALUES ('$rollno','$name','$address','$contactno','$email','$username','$password')";
+                        $sql="UPDATE vacancy set description='$description', location='$location',
+                                salary='$salary',last_date='$lastdate' where vacancy_id=$vacancy_id";
 
                         $insert=mysqli_query($con,$sql);
 
@@ -122,9 +125,9 @@ include './includes/connection.php';
                                     {
                                         icon: 'success',
                                         title: 'Success!',
-                                        text: 'Insertion Successful'
+                                        text: 'Update Successful'
                                     }).then((result) => {
-                                        window.location='view-students.php';
+                                        window.location='view-vacancies.php';
                                     });
                                 </script>
                             <?php
@@ -139,7 +142,7 @@ include './includes/connection.php';
                                         title: 'Oops!',
                                         text: 'Something went wrong!!'
                                     }).then((result) => {
-                                        window.location='add-student.php';
+                                        window.location='edit-vacancy.php';
                                     });
                                 </script>
                             <?php
@@ -183,7 +186,7 @@ include './includes/connection.php';
   <script src="js/Chart.roundedBarCharts.js"></script>
   <!-- End custom js for this page-->
                       
-  <script src="./js/validations/add-student.js"></script>
+  <script src="./js/validations/edit-vacancy.js"></script>
 </body>
 
 </html>
