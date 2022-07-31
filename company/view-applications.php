@@ -70,13 +70,13 @@ include './includes/connection.php';
                         </tr>
                         </thead>
                         <tbody>
-                        <?php  
+                        <?php
                             $company_id=$_SESSION['company_id'];
                             $query=mysqli_query($con,"SELECT company.*,student.*,category.*,apply_post.*,
                             vacancy.* from company,student,category,apply_post,vacancy where
                             company.company_id=apply_post.company_id and apply_post.student_id=student.student_id
-                            and category.category_id=vacancy.category_id and 
-                            apply_post.vacancy_id=vacancy.vacancy_id and 
+                            and category.category_id=vacancy.category_id and
+                            apply_post.vacancy_id=vacancy.vacancy_id and
                             company.company_id=$company_id") or die(mysqli_error($con));
                             if(mysqli_num_rows($query)){
                                 $i=1;
@@ -109,7 +109,7 @@ include './includes/connection.php';
         <!-- partial -->
       </div>
       <!-- main-panel ends -->
-    </div>   
+    </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->

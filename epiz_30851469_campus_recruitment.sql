@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `category_name` varchar(50) NOT NULL,
   `vacancy` int NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3009;
+) ENGINE=MyISAM AUTO_INCREMENT=3009 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `category`
